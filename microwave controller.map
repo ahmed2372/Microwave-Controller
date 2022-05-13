@@ -72,10 +72,10 @@ Image Symbol Table
     .text                                    0x00000280   Section      244  startup_tm4c123.o(.text)
     $v0                                      0x00000280   Number         0  startup_tm4c123.o(.text)
     .text                                    0x00000374   Section        0  microwave controller.o(.text)
-    .text                                    0x00000378   Section       36  init.o(.text)
-    i.__scatterload_copy                     0x0000039c   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x000003aa   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x000003ac   Section       14  handlers.o(i.__scatterload_zeroinit)
+    .text                                    0x0000037c   Section       36  init.o(.text)
+    i.__scatterload_copy                     0x000003a0   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x000003ae   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x000003b0   Section       14  handlers.o(i.__scatterload_zeroinit)
     STACK                                    0x20000000   Section      512  startup_tm4c123.o(STACK)
 
     Global Symbols
@@ -219,14 +219,14 @@ Image Symbol Table
     PWM1_2_Handler                           0x00000369   Thumb Code     2  startup_tm4c123.o(.text)
     PWM1_3_Handler                           0x0000036b   Thumb Code     2  startup_tm4c123.o(.text)
     PWM1_FAULT_Handler                       0x0000036d   Thumb Code     2  startup_tm4c123.o(.text)
-    main                                     0x00000375   Thumb Code     4  microwave controller.o(.text)
-    __scatterload                            0x00000379   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x00000379   Thumb Code     0  init.o(.text)
-    __scatterload_copy                       0x0000039d   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x000003ab   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x000003ad   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    Region$$Table$$Base                      0x000003bc   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000003cc   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x00000375   Thumb Code     6  microwave controller.o(.text)
+    __scatterload                            0x0000037d   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x0000037d   Thumb Code     0  init.o(.text)
+    __scatterload_copy                       0x000003a1   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x000003af   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x000003b1   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    Region$$Table$$Base                      0x000003c0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x000003d0   Number         0  anon$$obj.o(Region$$Table)
     __initial_sp                             0x20000200   Data           0  startup_tm4c123.o(STACK)
 
 
@@ -237,9 +237,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000281
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x000003cc, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x000003d0, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x000003cc, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x000003d0, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -254,13 +254,14 @@ Memory Map of the image
     0x0000027c   0x00000000   Code   RO           44    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
     0x0000027c   0x00000004   Code   RO           33    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x000000f4   Code   RO            4  * .text               startup_tm4c123.o
-    0x00000374   0x00000004   Code   RO           10    .text               microwave controller.o
-    0x00000378   0x00000024   Code   RO           46    .text               mc_w.l(init.o)
-    0x0000039c   0x0000000e   Code   RO           50    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x000003aa   0x00000002   Code   RO           51    i.__scatterload_null  mc_w.l(handlers.o)
-    0x000003ac   0x0000000e   Code   RO           52    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x000003ba   0x00000002   PAD
-    0x000003bc   0x00000010   Data   RO           48    Region$$Table       anon$$obj.o
+    0x00000374   0x00000006   Code   RO           10    .text               microwave controller.o
+    0x0000037a   0x00000002   PAD
+    0x0000037c   0x00000024   Code   RO           46    .text               mc_w.l(init.o)
+    0x000003a0   0x0000000e   Code   RO           50    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x000003ae   0x00000002   Code   RO           51    i.__scatterload_null  mc_w.l(handlers.o)
+    0x000003b0   0x0000000e   Code   RO           52    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x000003be   0x00000002   PAD
+    0x000003c0   0x00000010   Data   RO           48    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
@@ -282,13 +283,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-         4          0          0          0          0       1871   microwave controller.o
+         6          0          0          0          0       1891   microwave controller.o
        244          6        620          0        512       5372   startup_tm4c123.o
 
     ----------------------------------------------------------------------
-       248          6        636          0        512       7243   Object Totals
+       252          6        636          0        512       7263   Object Totals
          0          0         16          0          0          0   (incl. Generated)
-         0          0          0          0          0          0   (incl. Padding)
+         2          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -325,15 +326,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       336         22        636          0        512       7311   Grand Totals
-       336         22        636          0        512       7311   ELF Image Totals
-       336         22        636          0          0          0   ROM Totals
+       340         22        636          0        512       7331   Grand Totals
+       340         22        636          0        512       7331   ELF Image Totals
+       340         22        636          0          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                  972 (   0.95kB)
+    Total RO  Size (Code + RO Data)                  976 (   0.95kB)
     Total RW  Size (RW Data + ZI Data)               512 (   0.50kB)
-    Total ROM Size (Code + RO Data + RW Data)        972 (   0.95kB)
+    Total ROM Size (Code + RO Data + RW Data)        976 (   0.95kB)
 
 ==============================================================================
 
