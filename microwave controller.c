@@ -222,7 +222,7 @@ void count_down(uint32_t num){
  char text []="";
  for (k = num ; k>=0 ; k--)
  {
-  sprintf (text ,"%d", k);                             //itoa(k,text,text);
+  sprintf (text ,"%d", k);                             
   lcd_cmd(0x01);
   lcd_string (text);
   delay_ms(1000);
@@ -244,27 +244,13 @@ int main()
 	while(1){
 		volatile char key = keypad();
 		lcd_cmd(0x01);	
-				if(key=='A'){;
+				if(key=='A'){
 						lcd_string("Popcorn");
-						delay_ms(1000);
+						delay_ms(2000);
+						count_down(60);
 						lcd_cmd(0x01);
 				}
-				else if(key=='B'){
-						lcd_string("Beef");
-						delay_ms(1000);
-						lcd_cmd(0x01);			
-				}
-				else if(key=='C'){
-						lcd_string("chicken");
-						delay_ms(1000);
-						lcd_cmd(0x01);
-				}
-				else if(key=='D'){
-						lcd_string("Cooking Time?");
-						delay_ms(1000);
-						lcd_cmd(0x01);
-					
-				}
+				
 			}
 }
 
