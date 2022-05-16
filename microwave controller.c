@@ -1,67 +1,85 @@
-#include <stdint.h>
-#include "C:\Keil\Labware\inc\tm4c123gh6pm.h"
-/*
+#include "tm4c123gh6pm.h"
+#include "stdint.h"
+#include "string.h"
+
+/**********LCD PORTS***********
+
+RS=PD0   Rgr select
+RW=PD1   Rgr read or write
+EN=PD2   Enable the clock of the LCD
+D0=PA7
+D1=PA6
+D2=PA5
+D3=PB4
+D4=PE5
+D5=PE4
+D6=PB1
+D7=PB0
+Dx is the input data bit
+
+**********KEYPAD PORTS***********
+
 PE0 --> column1
 PE1 --> column2
 PE2 --> column3
 PE3 --> column4
 
+PC4 --> row1
+PC5 --> row2
+PC6 --> row3
+PC7 --> row4
+
+***********BUZZER PORT***********
+
 PB3 --> Buzzer
 
-PB4 --> row1
-PB5 --> row2
-PB6 --> row3
-PB7 --> row4
-
-
-
-btn 1 --> 0x02 red
-btn 2 --> 0x04 blue 
-btn 3 --> 0x06
-btn A --> 0x08 green
-btn 4 --> 0x0A
-btn 5 --> 0x0C
-btn 6 --> 0x0E white
-btn B --> 0x0E white with buzzer
-btn 7 --> 0x0C with buzzer
-btn 8 --> 0x0A with buzzer
-btn 9 --> 0x08 green with buzzer
-btn C --> 0x06 with buzzer
-btn 0 --> 0x04 blue with buzzer
-btn D --> 0x02 red with buzzer
 */
+
 #define on 1
 #define off 0
 void portb_init(){
-		SYSCTL_RCGCGPIO_R |= 0x02; // activate Port B
+		SYSCTL_RCGCGPIO_R |= 0x02;
 		while((SYSCTL_PRGPIO_R & 0x02)==0);
-		GPIO_PORTB_DIR_R |= 0xF8; //set B3-B7 as output pins
-		GPIO_PORTB_DEN_R |=0xF8;  //set B3-B7 as digital pins
-		GPIO_PORTB_AMSEL_R &= ~0xF8;
-		GPIO_PORTB_AFSEL_R &= ~0xF8;
+		GPIO_PORTB_DIR_R |= 0x1B; //set B0-B1 and B3-B4 as output pins
+		GPIO_PORTB_DEN_R |=0x1B;
+		GPIO_PORTB_AMSEL_R &= ~0x1B;
+		GPIO_PORTB_AFSEL_R &= ~0x1B;
+		GPIO_PORTB_PCTL_R &=~0x000FF0FF;
+	SYSCTL_RCGCGPIO_R |= 0x04;        //Enable clock to PORTC and PORTE  
+  while ((SYSCTL_RCGCGPIO_R&0x04)==0);  //wait for clock to be setted
+  GPIO_PORTC_CR_R  |= 0xF0;             //Allow settings for all pins of PORTC
+  
+  GPIO_PORTC_DIR_R |=0xF0;
+  GPIO_PORTC_DEN_R |= 0xF0;             //Set PORTC as digital pins
+  
 }
+
 void porte_init(){
-		SYSCTL_RCGCGPIO_R |= 0x10; // activate Port E
+		SYSCTL_RCGCGPIO_R |= 0x10;
 		while((SYSCTL_PRGPIO_R & 0x10)==0);
 		GPIO_PORTE_DIR_R &= ~0x0F; //set E0-E3 as input pins
-		GPIO_PORTE_DEN_R |=0x0F;   //set E0-E3 as digital pins
-		GPIO_PORTE_AMSEL_R &= ~0x0F;
-		GPIO_PORTE_AFSEL_R &= ~0x0F;
-		GPIO_PORTE_PDR_R |= 0x0F;	//Enable pull up resistors for E0-E3
+		GPIO_PORTE_DIR_R |= 0x30;
+		GPIO_PORTE_DEN_R |=0x3F;
+		GPIO_PORTE_AMSEL_R &= ~0x3F;
+		GPIO_PORTE_AFSEL_R &= ~0x3F;
+		GPIO_PORTE_PDR_R |= 0x0F;
 }
+
 void PortF_Init(){
 			SYSCTL_RCGCGPIO_R |= 0x20; // activate Port F
 			while((SYSCTL_PRGPIO_R&0x00000020) == 0){};
-			GPIO_PORTF_DIR_R |= 0x0E; // PF3-1 out
+			GPIO_PORTF_DIR_R |= 0x0E; // PF4,PF0 in, PF3-1 out
 			GPIO_PORTF_DEN_R |= 0x0E; // digital Input on PF1-3
 			GPIO_PORTF_AMSEL_R &= ~0x0E;
 			GPIO_PORTF_AFSEL_R &= ~0x0E;
 }
+
 void buzz(int num){
 	if (num) GPIO_PORTB_DATA_R |= 0x08;
-	else GPIO_PORTE_DATA_R &= ~0x08;
+	else GPIO_PORTB_DATA_R &= ~0x08;
 		
 }
+
 void SysTick_Wait(uint32_t delay){
 		NVIC_ST_CTRL_R = 0;
 		NVIC_ST_RELOAD_R = delay - 1;
@@ -69,29 +87,34 @@ void SysTick_Wait(uint32_t delay){
 		NVIC_ST_CTRL_R = 0x00000005;
 		while((NVIC_ST_CTRL_R & 0x00010000)==0){}
 }
+
 void delay_ms(uint32_t delay){
-		uint32_t i;
+		volatile uint32_t i;
 		for(i = 0;i<=delay;i++){
-			SysTick_Wait(80000/5);
+			SysTick_Wait(16000);
 		}
 }
+
 void delay_us(uint32_t delay){
-		uint32_t i;
+		volatile uint32_t i;
 		for(i = 0;i<delay;i++){
 			SysTick_Wait(16);
 		}
 }
-void row_activate(unsigned short row){
-		GPIO_PORTB_DATA_R = (1<<(row+4));
+
+void row_activate(unsigned char row){
+		GPIO_PORTC_DATA_R = (1<<(row+4));
 }
-unsigned short portE_DATA(){
+
+unsigned char portE_DATA(){
 		return (GPIO_PORTE_DATA_R & 0x0F);
 }
+
 unsigned char matrix[4][4]={{'1','2','3','A'},{'4','5','6','B'},{'7','8','9','C'},{'*','0','#','D'}};
 
 char keypad(void){
 		while(1){
-			unsigned short row,column;
+			volatile unsigned char row,column;
 				for (row=0;row<4;row++){
 						row_activate(row);
 						delay_us(2);
@@ -103,96 +126,129 @@ char keypad(void){
 				}
 		}
 }
-int main(){
-		portb_init();
-		porte_init();
-		PortF_Init();
-		while(1){
-				if(keypad()=='1'){
-						GPIO_PORTF_DATA_R = 0x2;
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-				}
-				if(keypad()=='2'){
-						GPIO_PORTF_DATA_R = 0x4;
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-				}
-				if(keypad()=='3'){
-						GPIO_PORTF_DATA_R = 0x6;
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-				}
-				if(keypad()=='A'){
-						GPIO_PORTF_DATA_R = 0x8;
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-				}
-				if(keypad()=='4'){
-						GPIO_PORTF_DATA_R = 0xA;
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-				}
-				if(keypad()=='5'){
-						GPIO_PORTF_DATA_R = 0xc;
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-				}
-				if(keypad()=='6'){
-						GPIO_PORTF_DATA_R = 0xE;
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-				}
-				if(keypad()=='B'){
-						GPIO_PORTF_DATA_R = 0xE;
-						buzz(on);
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-						buzz(off);
-				}
-				if(keypad()=='7'){
-						GPIO_PORTF_DATA_R = 0xc;
-						buzz(on);
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-						buzz(off);
-				}
-				if(keypad()=='8'){
-						GPIO_PORTF_DATA_R = 0xA;
-						buzz(on);
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-						buzz(off);
-				}
-				if(keypad()=='9'){
-						GPIO_PORTF_DATA_R = 0x8;
-						buzz(on);
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-						buzz(off);
-				}
-				if(keypad()=='C'){
-						GPIO_PORTF_DATA_R = 0x6;
-						buzz(on);
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-						buzz(off);
-				}
-				if(keypad()=='0'){
-						GPIO_PORTF_DATA_R = 0x4;
-						buzz(on);
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-						buzz(off);
-				}
-				if(keypad()=='D'){
-						GPIO_PORTF_DATA_R = 0x2;
-						buzz(on);
-						delay_ms(1000);
-						GPIO_PORTF_DATA_R = 0x00;
-						buzz(off);
-				}
-			}
 
+void ports_init(){
+		SYSCTL_RCGCGPIO_R |=0x09;
+		while((SYSCTL_PRGPIO_R & 0x09) ==0);
+		GPIO_PORTA_DEN_R |=0xE0;
+		
+		GPIO_PORTD_DEN_R |=0x07;
+		
+		GPIO_PORTA_DIR_R |=0xE0;
+		
+		GPIO_PORTD_DIR_R |=0x07;
+		
+		GPIO_PORTA_AMSEL_R &=~0xE0;
+		
+		GPIO_PORTD_AMSEL_R &=~0x07;
+		
+		GPIO_PORTA_PCTL_R &=~0xFFF00000;
+		
+		GPIO_PORTD_PCTL_R &=~0x00000FFF;
+		
+		GPIO_PORTA_AFSEL_R &=~0xE0;
+		
+		GPIO_PORTD_AFSEL_R &=~0x07;
+		
+		
 }
 
+void print_data(unsigned char data)
+{
+	if((data & 0x01)==0x01) {GPIO_PORTA_DATA_R |=0x80;} //check if bit0=1
+	else {GPIO_PORTA_DATA_R &=~0x80;}
+	
+	if ((data & 0x02)==0x02) {GPIO_PORTA_DATA_R |=0x40;} //check if bit1=1
+	else {GPIO_PORTA_DATA_R &=~0x40;}
+	
+	if((data & 0x04)==0x04) {GPIO_PORTA_DATA_R |=0x20;} //check if bit2=1
+	else {GPIO_PORTA_DATA_R &=~0x20;}
+	
+	if((data & 0x08)==0x08) {GPIO_PORTB_DATA_R |=0x10;} //check if bit3=1
+	else {GPIO_PORTB_DATA_R &=~0x10;}
+	
+	if((data & 0x10)==0x10) {GPIO_PORTE_DATA_R |=0x20;} //check if bit4=1
+	else {GPIO_PORTE_DATA_R &=~0x20;}
+	
+	if((data & 0x20)==0x20) {GPIO_PORTE_DATA_R |=0x10;} //check if bit5=1
+	else {GPIO_PORTE_DATA_R &=~0x10;}
+	
+	if((data & 0x40)==0x40) {GPIO_PORTB_DATA_R |=0x02;}		//check if bit6=1
+	else {GPIO_PORTB_DATA_R &=~0x02;}
+	
+	if((data & 0x80)==0x80) {GPIO_PORTB_DATA_R |=0x01;}	//check if bit7=1		
+	else {GPIO_PORTB_DATA_R &=~0x01;}
+}
+
+void lcd_cmd(unsigned char cmd) //passing command to lcd
+{
+	print_data(cmd);
+	GPIO_PORTD_DATA_R &=~0x02;
+	GPIO_PORTD_DATA_R &=~0x01;
+	GPIO_PORTD_DATA_R |=0x04;
+	delay_us(1000);
+	GPIO_PORTD_DATA_R &=~0x04;
+}
+
+void lcd_data(unsigned char data) //passing a char to lcd
+{
+	print_data(data);
+	GPIO_PORTD_DATA_R &=~0x02;
+	GPIO_PORTD_DATA_R |=0x01;
+	GPIO_PORTD_DATA_R |=0x04;
+	delay_us(1000);
+	GPIO_PORTD_DATA_R &=~0x04;
+}
+
+void lcd_string(char *string) //passing a string to lcd 
+{
+	volatile char i;
+	for(i=0; i <strlen(string);i++)
+	{
+		lcd_data(string[i]);
+	}
+}  
+
+void lcd_init(void)
+{
+	lcd_cmd(0x38);  //8-bit mode
+	lcd_cmd(0x06);  //Shift the cursor one position right 
+	lcd_cmd(0x0C);  //Display ON, cursor OFF
+	lcd_cmd(0x01); //clear screen
+}
+
+int main()
+{
+	portb_init();
+	porte_init();
+	PortF_Init();
+	ports_init();
+	delay_us(1000);
+	lcd_init();
+	lcd_cmd(0x80);
+	while(1){
+		volatile char key = keypad();
+		lcd_cmd(0x01);	
+				if(key=='A'){;
+						lcd_string("Popcorn");
+						delay_ms(1000);
+						lcd_cmd(0x01);
+				}
+				else if(key=='B'){
+						lcd_string("Beef");
+						delay_ms(1000);
+						lcd_cmd(0x01);			
+				}
+				else if(key=='C'){
+						lcd_string("chicken");
+						delay_ms(1000);
+						lcd_cmd(0x01);
+				}
+				else if(key=='D'){
+						lcd_string("Cooking Time?");
+						delay_ms(1000);
+						lcd_cmd(0x01);
+					
+				}
+			}
+}
