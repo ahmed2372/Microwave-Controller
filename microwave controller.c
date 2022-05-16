@@ -1,7 +1,7 @@
 #include "tm4c123gh6pm.h"
 #include "stdint.h"
 #include "string.h"
-
+#include "stdio.h"
 /**********LCD PORTS***********
 
 RS=PD0   Rgr select
@@ -217,6 +217,21 @@ void lcd_init(void)
 	lcd_cmd(0x01); //clear screen
 }
 
+void count_down(uint32_t num){
+ volatile int k ;
+ char text []="";
+ for (k = num ; k>=0 ; k--)
+ {
+  sprintf (text ,"%d", k);                             //itoa(k,text,text);
+  lcd_cmd(0x01);
+  lcd_string (text);
+  delay_ms(1000);
+  
+ }
+ delay_ms(2000);
+ lcd_cmd(0x01);
+ 
+}
 int main()
 {
 	portb_init();
@@ -252,3 +267,4 @@ int main()
 				}
 			}
 }
+
