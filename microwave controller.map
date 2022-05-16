@@ -7,6 +7,7 @@ Section Cross References
     startup_tm4c123.o(RESET) refers to startup_tm4c123.o(STACK) for __initial_sp
     startup_tm4c123.o(RESET) refers to startup_tm4c123.o(.text) for Reset_Handler
     startup_tm4c123.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    microwave controller.o(.text) refers to microwave controller.o(.data) for matrix
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
     entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
@@ -41,6 +42,7 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     RESET                                    0x00000000   Section      620  startup_tm4c123.o(RESET)
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
@@ -52,7 +54,6 @@ Image Symbol Table
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
@@ -72,11 +73,12 @@ Image Symbol Table
     .text                                    0x00000280   Section      244  startup_tm4c123.o(.text)
     $v0                                      0x00000280   Number         0  startup_tm4c123.o(.text)
     .text                                    0x00000374   Section        0  microwave controller.o(.text)
-    .text                                    0x000003cc   Section       36  init.o(.text)
-    i.__scatterload_copy                     0x000003f0   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x000003fe   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00000400   Section       14  handlers.o(i.__scatterload_zeroinit)
-    STACK                                    0x20000000   Section      512  startup_tm4c123.o(STACK)
+    .text                                    0x0000078c   Section       36  init.o(.text)
+    i.__scatterload_copy                     0x000007b0   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x000007be   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x000007c0   Section       14  handlers.o(i.__scatterload_zeroinit)
+    .data                                    0x20000000   Section       16  microwave controller.o(.data)
+    STACK                                    0x20000010   Section      512  startup_tm4c123.o(STACK)
 
     Global Symbols
 
@@ -219,18 +221,26 @@ Image Symbol Table
     PWM1_2_Handler                           0x00000369   Thumb Code     2  startup_tm4c123.o(.text)
     PWM1_3_Handler                           0x0000036b   Thumb Code     2  startup_tm4c123.o(.text)
     PWM1_FAULT_Handler                       0x0000036d   Thumb Code     2  startup_tm4c123.o(.text)
-    SysTick_Wait                             0x00000375   Thumb Code    36  microwave controller.o(.text)
-    delay_ms                                 0x00000399   Thumb Code    24  microwave controller.o(.text)
-    delay_us                                 0x000003b1   Thumb Code    22  microwave controller.o(.text)
-    main                                     0x000003c7   Thumb Code     4  microwave controller.o(.text)
-    __scatterload                            0x000003cd   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x000003cd   Thumb Code     0  init.o(.text)
-    __scatterload_copy                       0x000003f1   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x000003ff   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00000401   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    Region$$Table$$Base                      0x00000410   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00000420   Number         0  anon$$obj.o(Region$$Table)
-    __initial_sp                             0x20000200   Data           0  startup_tm4c123.o(STACK)
+    portb_init                               0x00000375   Thumb Code    82  microwave controller.o(.text)
+    porte_init                               0x000003c7   Thumb Code    98  microwave controller.o(.text)
+    PortF_Init                               0x00000429   Thumb Code    82  microwave controller.o(.text)
+    buzz                                     0x0000047b   Thumb Code    34  microwave controller.o(.text)
+    SysTick_Wait                             0x0000049d   Thumb Code    36  microwave controller.o(.text)
+    delay_ms                                 0x000004c1   Thumb Code    24  microwave controller.o(.text)
+    delay_us                                 0x000004d9   Thumb Code    22  microwave controller.o(.text)
+    row_activate                             0x000004ef   Thumb Code    12  microwave controller.o(.text)
+    portE_DATA                               0x000004fb   Thumb Code    10  microwave controller.o(.text)
+    keypad                                   0x00000505   Thumb Code    66  microwave controller.o(.text)
+    main                                     0x00000547   Thumb Code   520  microwave controller.o(.text)
+    __scatterload                            0x0000078d   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x0000078d   Thumb Code     0  init.o(.text)
+    __scatterload_copy                       0x000007b1   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x000007bf   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x000007c1   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    Region$$Table$$Base                      0x000007d0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x000007f0   Number         0  anon$$obj.o(Region$$Table)
+    matrix                                   0x20000000   Data          16  microwave controller.o(.data)
+    __initial_sp                             0x20000210   Data           0  startup_tm4c123.o(STACK)
 
 
 
@@ -240,43 +250,44 @@ Memory Map of the image
 
   Image Entry point : 0x00000281
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00000420, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000800, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00000420, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x000007f0, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x0000026c   Data   RO            3    RESET               startup_tm4c123.o
-    0x0000026c   0x00000000   Code   RO           29  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x0000026c   0x00000004   Code   RO           32    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x00000270   0x00000004   Code   RO           35    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000274   0x00000000   Code   RO           37    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000274   0x00000000   Code   RO           39    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000274   0x00000008   Code   RO           40    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x0000027c   0x00000000   Code   RO           42    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x0000027c   0x00000000   Code   RO           44    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x0000027c   0x00000004   Code   RO           33    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x0000026c   0x00000000   Code   RO           32  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x0000026c   0x00000004   Code   RO           35    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000270   0x00000004   Code   RO           38    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000274   0x00000000   Code   RO           40    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000274   0x00000000   Code   RO           42    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000274   0x00000008   Code   RO           43    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x0000027c   0x00000000   Code   RO           45    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x0000027c   0x00000000   Code   RO           47    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x0000027c   0x00000004   Code   RO           36    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x000000f4   Code   RO            4  * .text               startup_tm4c123.o
-    0x00000374   0x00000056   Code   RO           10    .text               microwave controller.o
-    0x000003ca   0x00000002   PAD
-    0x000003cc   0x00000024   Code   RO           46    .text               mc_w.l(init.o)
-    0x000003f0   0x0000000e   Code   RO           50    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x000003fe   0x00000002   Code   RO           51    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00000400   0x0000000e   Code   RO           52    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x0000040e   0x00000002   PAD
-    0x00000410   0x00000010   Data   RO           48    Region$$Table       anon$$obj.o
+    0x00000374   0x00000418   Code   RO           10    .text               microwave controller.o
+    0x0000078c   0x00000024   Code   RO           49    .text               mc_w.l(init.o)
+    0x000007b0   0x0000000e   Code   RO           53    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x000007be   0x00000002   Code   RO           54    i.__scatterload_null  mc_w.l(handlers.o)
+    0x000007c0   0x0000000e   Code   RO           55    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x000007ce   0x00000002   PAD
+    0x000007d0   0x00000020   Data   RO           51    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Base: 0x20000000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
-
-    **** No section assigned to this execution region ****
-
-
-    Execution Region ER_ZI (Base: 0x20000000, Size: 0x00000200, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Base: 0x20000000, Size: 0x00000010, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000200   Zero   RW            1    STACK               startup_tm4c123.o
+    0x20000000   0x00000010   Data   RW           11    .data               microwave controller.o
+
+
+    Execution Region ER_ZI (Base: 0x20000010, Size: 0x00000200, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000010   0x00000200   Zero   RW            1    STACK               startup_tm4c123.o
 
 
 ==============================================================================
@@ -286,13 +297,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        86          0          0          0          0       5370   microwave controller.o
+      1048         62          0         16          0       7408   microwave controller.o
        244          6        620          0        512       5372   startup_tm4c123.o
 
     ----------------------------------------------------------------------
-       332          6        636          0        512      10742   Object Totals
-         0          0         16          0          0          0   (incl. Generated)
-         2          0          0          0          0          0   (incl. Padding)
+      1292         68        652         16        512      12780   Object Totals
+         0          0         32          0          0          0   (incl. Generated)
+         0          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -329,15 +340,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       420         22        636          0        512      10810   Grand Totals
-       420         22        636          0        512      10810   ELF Image Totals
-       420         22        636          0          0          0   ROM Totals
+      1380         84        652         16        512      12848   Grand Totals
+      1380         84        652         16        512      12848   ELF Image Totals
+      1380         84        652         16          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 1056 (   1.03kB)
-    Total RW  Size (RW Data + ZI Data)               512 (   0.50kB)
-    Total ROM Size (Code + RO Data + RW Data)       1056 (   1.03kB)
+    Total RO  Size (Code + RO Data)                 2032 (   1.98kB)
+    Total RW  Size (RW Data + ZI Data)               528 (   0.52kB)
+    Total ROM Size (Code + RO Data + RW Data)       2048 (   2.00kB)
 
 ==============================================================================
 
