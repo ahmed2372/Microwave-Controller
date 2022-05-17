@@ -222,7 +222,7 @@ void count_down(uint32_t num){
  char text []="";
  for (k = num ; k>=0 ; k--)
  {
-  sprintf (text ,"%d", k);                             
+  sprintf (text ,"%d", k);                             //itoa(k,text,text);
   lcd_cmd(0x01);
   lcd_string (text);
   delay_ms(1000);
@@ -232,6 +232,36 @@ void count_down(uint32_t num){
  lcd_cmd(0x01);
  
 }
+void loop_beef(uint32_t weight){
+  if (weight=='1'){
+         count_down(30);
+        }
+       if (weight=='2'){
+        count_down(60);
+       }
+       if (weight=='3'){
+        count_down(90);
+       }
+       if (weight=='4'){
+        count_down(120);
+       }
+       if (weight=='5'){
+        count_down(150);
+       }
+       if (weight=='6'){
+        count_down(180);
+       }
+       if (weight=='7'){
+        count_down(210);
+       }
+       if (weight=='8'){
+        count_down(240);
+       }
+       if (weight=='9'){
+        count_down(270);
+       }
+}
+
 int main()
 {
 	portb_init();
@@ -243,6 +273,8 @@ int main()
 	lcd_cmd(0x80);
 	while(1){
 		volatile char key = keypad();
+		volatile char weight;
+		char x []= "";
 		lcd_cmd(0x01);	
 				if(key=='A'){
 						lcd_string("Popcorn");
@@ -250,7 +282,30 @@ int main()
 						count_down(60);
 						lcd_cmd(0x01);
 				}
+				else if(key=='B'){
+						lcd_string("Beef");
+						delay_ms(2000);
+						lcd_cmd(0x01);
+						lcd_string("beef weight?");
+						weight = keypad();
+						while(!((weight<='9')&&(weight>='1'))){
+								lcd_cmd(0x01);   
+								lcd_string("Err");
+								delay_ms(2000);
+								lcd_cmd(0x01);
+								lcd_string("beef weight?");
+								weight = keypad();
+						}
+					  lcd_cmd(0x01);
+					  sprintf (x ,"%c", weight) ;
+					  lcd_string(x);
+					  lcd_string(" kg");
+					  delay_ms(2000);
+					  lcd_cmd(0x01);
+					  loop_beef(weight);        
+			}	
 				
 			}
-}
+	}
+
 
