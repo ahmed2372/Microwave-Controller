@@ -261,6 +261,35 @@ void loop_beef(uint32_t weight){
         count_down(270);
        }
 }
+void loop_chicken(uint32_t weight){
+  if (weight=='1'){
+         count_down(12);
+        }
+       if (weight=='2'){
+        count_down(24);
+       }
+       if (weight=='3'){
+        count_down(36);
+       }
+       if (weight=='4'){
+        count_down(48);
+       }
+       if (weight=='5'){
+        count_down(60);
+       }
+       if (weight=='6'){
+        count_down(72);
+       }
+       if (weight=='7'){
+        count_down(84);
+       }
+       if (weight=='8'){
+        count_down(96);
+       }
+       if (weight=='9'){
+        count_down(108);
+       }
+ }
 
 int main()
 {
@@ -303,7 +332,29 @@ int main()
 					  delay_ms(2000);
 					  lcd_cmd(0x01);
 					  loop_beef(weight);        
-			}	
+				}
+				else if(key=='C'){
+										lcd_string("chicken");
+										delay_ms(2000);
+										lcd_cmd(0x01);
+										lcd_string("chicken weight?");
+										weight = keypad();
+							while(!((weight<='9')&&(weight>='1'))){
+							 lcd_cmd(0x01);
+							 lcd_string("Err");
+							 delay_ms(2000);
+								lcd_cmd(0x01);
+								lcd_string("chicken weight?");
+								weight = keypad();
+								}
+							lcd_cmd(0x01);
+							 sprintf (x ,"%c", weight) ;
+							 lcd_string(x);
+							 lcd_string(" kg");
+							 delay_ms(2000);
+							 lcd_cmd(0x01);
+							 loop_chicken(weight);
+						}				
 				
 			}
 	}
