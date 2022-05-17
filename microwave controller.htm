@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\microwave controller.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\microwave controller.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue May 17 19:26:38 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Tue May 17 14:57:06 2022
 <BR><P>
-<H3>Maximum Stack Usage =         72 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =         88 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 main &rArr; loop_chicken &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
 <P>
@@ -1214,8 +1214,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[89]"></a>count_down</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, microwave controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
+<P><STRONG><a name="[89]"></a>count_down</STRONG> (Thumb, 136 bytes, Stack size 32 bytes, microwave controller.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_string
@@ -1228,7 +1228,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8b]"></a>loop_beef</STRONG> (Thumb, 98 bytes, Stack size 8 bytes, microwave controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = loop_beef &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = loop_beef &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 </UL>
@@ -1236,15 +1236,15 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8c]"></a>loop_chicken</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, microwave controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = loop_chicken &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = loop_chicken &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 892 bytes, Stack size 16 bytes, microwave controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = main &rArr; loop_chicken &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 904 bytes, Stack size 16 bytes, microwave controller.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = main &rArr; loop_chicken &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_chicken

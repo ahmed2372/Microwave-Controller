@@ -12,7 +12,7 @@ bool repeat;
 		sw1 --> pause
 		sw2(external) --> door state 
 		state variable to decide what we will do after returning to the main.
-		interupt conditions.
+		interupt coditions.
 		
 */
 
@@ -279,22 +279,27 @@ void lcd_init(void)
  lcd_cmd(0x0C);  //Display ON, cursor OFF
  lcd_cmd(0x01); //clear screen
 }
-void count_down(int num){
-  int k ;
- char text []="";
- for (k = num ; k>=0 ; k--)
- {
-	 if(repeat==true){break;}	
-	lcd_cmd(0x01);	 
-  sprintf(text ,"%d", k);
-	lcd_string (text);
-  delay_ms(1000);
-	
- }
- //delay_ms(2000);
- //lcd_cmd(0x01);
- 
+void count_down (int num){
+	int minutes;
+	int seconds;
+	int k;
+	char min[]="";
+	char sec[]="";
+	for(k=num;k>=0;k--){
+		lcd_cmd(0x01);
+		minutes=(k/60)%60;
+		seconds=(k%60);
+		sprintf(min,"%d",minutes);
+		if(minutes<10){lcd_string("0");};
+		lcd_string(min);
+		lcd_string(":");
+		if(seconds<10){lcd_string("0");};
+		sprintf(sec,"%d",seconds);
+		lcd_string(sec);
+		delay_ms(1000);
+		if(repeat==true){break;}
 }
+	}
 void loop_beef( char weight){
   if (weight=='1'){
          count_down(30);
@@ -355,7 +360,8 @@ void loop_chicken(uint32_t weight){
        }
                         
 
-int main(){
+int main()
+{
  portb_init();
  porte_init();
  PortF_Init();
@@ -416,6 +422,7 @@ int main(){
 		   delay_ms(2000);
 		   lcd_cmd(0x01);
        loop_beef(weight);
+			 lcd_cmd(0x01);
 			 if (repeat==false){
 				buzz(on);
 			  leds_on;
@@ -457,6 +464,7 @@ int main(){
 		   delay_ms(2000);
 		   lcd_cmd(0x01);
        loop_chicken(weight);
+			 lcd_cmd(0x01);
 			 if (repeat==false){
 				buzz(on);
 			  leds_on;
@@ -479,4 +487,4 @@ int main(){
     }
 		
    }
-}
+  }
