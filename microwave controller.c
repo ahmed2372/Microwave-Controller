@@ -144,12 +144,19 @@ void delay_ms(uint32_t delay){
 		}
 		
 	if (switch1() == 0x00){	
-		//delay_us(200000);
-		while(switch1() == 0x00);
-		while((switch1() == 0x10) && (switch2() == 0x01)){};	
+		delay_us(200000);
+		
+		
+		
+		while((switch1() == 0x10) && (switch2() == 0x01)){};
+			
+			//delay_us(1000);
+		
+		
 		if(switch1() == 0x00){
-				while(switch1() == 0x00);
-				repeat = true;			
+				delay_us(200000);
+				repeat = true;
+				
 				break;}
 		}
    SysTick_Wait(16000);
@@ -253,7 +260,7 @@ void lcd_cmd(unsigned char cmd) //passing command to lcd
  GPIO_PORTD_DATA_R &=~0x04;
 }
 
-void lcd_data(unsigned char data) //passing a char to lcd
+unsigned char lcd_data(unsigned char data) //passing a char to lcd
 {
  print_data(data);
  GPIO_PORTD_DATA_R &=~0x02;
@@ -261,6 +268,7 @@ void lcd_data(unsigned char data) //passing a char to lcd
  GPIO_PORTD_DATA_R |=0x04;
  delay_us(1000);
  GPIO_PORTD_DATA_R &=~0x04;
+	return data;
 }
 
 void lcd_string(char *string) //passing a string to lcd 
@@ -279,27 +287,43 @@ void lcd_init(void)
  lcd_cmd(0x0C);  //Display ON, cursor OFF
  lcd_cmd(0x01); //clear screen
 }
-void count_down (int num){
-	int minutes;
-	int seconds;
-	int k;
-	char min[]="";
-	char sec[]="";
-	for(k=num;k>=0;k--){
-		lcd_cmd(0x01);
-		minutes=(k/60)%60;
-		seconds=(k%60);
-		sprintf(min,"%d",minutes);
-		if(minutes<10){lcd_string("0");};
-		lcd_string(min);
-		lcd_string(":");
-		if(seconds<10){lcd_string("0");};
-		sprintf(sec,"%d",seconds);
-		lcd_string(sec);
-		delay_ms(1000);
-		if(repeat==true){break;}
+void count_down(int num){
+  int k ;
+ char text []="";
+ for (k = num ; k>=0 ; k--)
+ {
+	 if(repeat==true){break;}
+	/*if(switch3() == 0x00){
+				while(switch3() == 0x00){}
+		}
+		
+	if (switch1() == 0x00){	
+		delay_us(200000);
+		
+		
+		
+		while((switch1() == 0x10) && (switch2() == 0x01)){};
+			
+			//delay_us(1000);
+		
+		
+		if(switch1() == 0x00){
+				delay_us(200000);
+				//repeat = 1;
+				
+				break;}
+		}*/
+	
+	lcd_cmd(0x01);	 
+  sprintf(text ,"%d", k);
+	lcd_string (text);
+  delay_ms(1000);
+	
+ }
+ //delay_ms(2000);
+ //lcd_cmd(0x01);
+ 
 }
-	}
 void loop_beef( char weight){
   if (weight=='1'){
          count_down(30);
@@ -373,6 +397,8 @@ int main()
  while(1){
 	volatile char key = keypad();
   volatile char weight;
+	char time_input1;
+	char time_input2;
 	char x []= "";
 	repeat = false;
   lcd_cmd(0x01); 
@@ -422,7 +448,6 @@ int main()
 		   delay_ms(2000);
 		   lcd_cmd(0x01);
        loop_beef(weight);
-			 lcd_cmd(0x01);
 			 if (repeat==false){
 				buzz(on);
 			  leds_on;
@@ -464,8 +489,50 @@ int main()
 		   delay_ms(2000);
 		   lcd_cmd(0x01);
        loop_chicken(weight);
-			 lcd_cmd(0x01);
 			 if (repeat==false){
+				buzz(on);
+			  leds_on;
+			  delay_ms(1000);
+			  buzz(off);
+			  leds_off;
+			  delay_ms(1000);
+				buzz(on);
+			  leds_on;
+			  delay_ms(1000);
+			  buzz(off);
+			  leds_off;
+			  delay_ms(1000);
+				buzz(on);
+			  leds_on;
+			  delay_ms(1000);
+			  buzz(off);
+			  leds_off;
+			  delay_ms(1000);}
+    }
+        
+    else if(key=='D' && repeat == false){
+      lcd_string("Cooking Time?");
+      delay_ms(2000);
+			lcd_cmd(0x01);
+			lcd_cmd(0x84);
+			lcd_data(keypad());
+		time_input1=lcd_data(keypad());
+			lcd_cmd(0x83);
+			lcd_data(time_input1);
+			lcd_cmd(0x84);
+			lcd_data(keypad());
+			time_input2=lcd_data(keypad());
+			lcd_cmd(0x82);
+			lcd_data(':');
+			lcd_cmd(0x81);
+			lcd_data(time_input1);
+			lcd_cmd(0x83);
+			lcd_data(time_input2);
+			lcd_cmd(0x84);
+			lcd_data(keypad());
+			
+      lcd_cmd(0x01);
+      if (repeat==false){
 				buzz(on);
 			  leds_on;
 			  delay_ms(1000);
@@ -488,3 +555,4 @@ int main()
 		
    }
   }
+
