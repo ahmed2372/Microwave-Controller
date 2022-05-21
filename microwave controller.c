@@ -362,16 +362,17 @@ void loop_chicken(uint32_t weight){
 void button_D(){
 	int i;
 	char str[] = "00:00";
+	char min_value[] = "  ";
+	char sec_value[] = "  ";
 	char *remaining;
-    long answer;
+    long answer1;
+	long answer2;
 	lcd_cmd(0x01);
-			//lcd_cmd(0x84);
+
 			
 			lcd_string(str);
 			
-			/*str[3] = str[4]; 
-			str[4] = keypad();*/
-			//while(switch2() == 0x01){
+
 			for(i=3;i>=0;i--){
 				
 				str[0] = str[1];
@@ -380,14 +381,24 @@ void button_D(){
 				str[4] = keypad();
 				lcd_cmd(0x01);
 				lcd_string(str);
-			  delay_ms(1000);
+			  delay_ms(500);
 			}
-			str[2]=str[3];
-			str[3] = str[4];
 			
-    answer = strtol(str, &remaining, 10);
-			count_down(answer);
-			lcd_cmd(0x01);
+			min_value[0] = str[0]; 
+			min_value[1] = str[1];
+			sec_value[0] = str[3];
+			sec_value[1] = str[4];
+			answer1 = strtol(min_value, &remaining, 10);
+			answer2 =	strtol(sec_value, &remaining, 10);
+			if(((answer1*60) + answer2)> (30*60)){
+					lcd_cmd(0x01);
+					lcd_string("Err");
+					delay_ms(1000);
+					button_D();
+			}
+			else 
+				count_down(((answer1*60) + answer2));
+				lcd_cmd(0x01);
 
 
 }
@@ -523,8 +534,8 @@ int main()
       lcd_string("Cooking Time?");
       delay_ms(2000);
 			button_D();
-      //}
-      /*if (repeat==false){
+      
+      if (repeat==false){
 				buzz(on);
 			  leds_on;
 			  delay_ms(1000);
@@ -542,7 +553,7 @@ int main()
 			  delay_ms(1000);
 			  buzz(off);
 			  leds_off;
-			  delay_ms(1000);}*/
+			  delay_ms(1000);}
     }
 		
    }

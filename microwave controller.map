@@ -399,27 +399,27 @@ Image Symbol Table
     .text                                    0x00000280   Section      244  startup_tm4c123.o(.text)
     $v0                                      0x00000280   Number         0  startup_tm4c123.o(.text)
     .text                                    0x00000374   Section        0  microwave controller.o(.text)
-    .text                                    0x00000f5c   Section        0  strlen.o(.text)
-    .text                                    0x00000f6a   Section        0  strtol.o(.text)
-    .text                                    0x00000fda   Section        0  uldiv.o(.text)
-    .text                                    0x0000103c   Section        0  ctype_o.o(.text)
-    .text                                    0x00001044   Section        0  _strtoul.o(.text)
-    .text                                    0x000010e4   Section       36  init.o(.text)
-    .text                                    0x00001108   Section        0  llshl.o(.text)
-    .text                                    0x00001126   Section        0  llushr.o(.text)
-    .text                                    0x00001146   Section        0  _chval.o(.text)
-    i.__0sprintf$4                           0x00001164   Section        0  printf4.o(i.__0sprintf$4)
-    i.__aeabi_errno_addr                     0x0000118c   Section        0  errno.o(i.__aeabi_errno_addr)
-    i.__scatterload_copy                     0x00001194   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x000011a2   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x000011a4   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i._printf_core                           0x000011b4   Section        0  printf4.o(i._printf_core)
-    _printf_core                             0x000011b5   Thumb Code   548  printf4.o(i._printf_core)
-    i._sputc                                 0x000013dc   Section        0  printf4.o(i._sputc)
-    _sputc                                   0x000013dd   Thumb Code    10  printf4.o(i._sputc)
-    .constdata                               0x000013e6   Section      129  ctype_o.o(.constdata)
-    .constdata                               0x00001468   Section        4  ctype_o.o(.constdata)
-    table                                    0x00001468   Data           4  ctype_o.o(.constdata)
+    .text                                    0x00001044   Section        0  strlen.o(.text)
+    .text                                    0x00001052   Section        0  strtol.o(.text)
+    .text                                    0x000010c2   Section        0  uldiv.o(.text)
+    .text                                    0x00001124   Section        0  ctype_o.o(.text)
+    .text                                    0x0000112c   Section        0  _strtoul.o(.text)
+    .text                                    0x000011cc   Section       36  init.o(.text)
+    .text                                    0x000011f0   Section        0  llshl.o(.text)
+    .text                                    0x0000120e   Section        0  llushr.o(.text)
+    .text                                    0x0000122e   Section        0  _chval.o(.text)
+    i.__0sprintf$4                           0x0000124c   Section        0  printf4.o(i.__0sprintf$4)
+    i.__aeabi_errno_addr                     0x00001274   Section        0  errno.o(i.__aeabi_errno_addr)
+    i.__scatterload_copy                     0x0000127c   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0000128a   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x0000128c   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i._printf_core                           0x0000129c   Section        0  printf4.o(i._printf_core)
+    _printf_core                             0x0000129d   Thumb Code   548  printf4.o(i._printf_core)
+    i._sputc                                 0x000014c4   Section        0  printf4.o(i._sputc)
+    _sputc                                   0x000014c5   Thumb Code    10  printf4.o(i._sputc)
+    .constdata                               0x000014ce   Section      129  ctype_o.o(.constdata)
+    .constdata                               0x00001550   Section        4  ctype_o.o(.constdata)
+    table                                    0x00001550   Data           4  ctype_o.o(.constdata)
     .data                                    0x20000000   Section       17  microwave controller.o(.data)
     .data                                    0x20000014   Section        4  errno.o(.data)
     _errno                                   0x20000014   Data           4  errno.o(.data)
@@ -627,31 +627,31 @@ Image Symbol Table
     count_down                               0x00000995   Thumb Code   136  microwave controller.o(.text)
     loop_beef                                0x00000a1d   Thumb Code    98  microwave controller.o(.text)
     loop_chicken                             0x00000a7f   Thumb Code    96  microwave controller.o(.text)
-    button_D                                 0x00000adf   Thumb Code   126  microwave controller.o(.text)
-    main                                     0x00000b5d   Thumb Code   934  microwave controller.o(.text)
-    strlen                                   0x00000f5d   Thumb Code    14  strlen.o(.text)
-    strtol                                   0x00000f6b   Thumb Code   112  strtol.o(.text)
-    __aeabi_uldivmod                         0x00000fdb   Thumb Code    98  uldiv.o(.text)
-    __rt_ctype_table                         0x0000103d   Thumb Code     4  ctype_o.o(.text)
-    _strtoul                                 0x00001045   Thumb Code   158  _strtoul.o(.text)
-    __scatterload                            0x000010e5   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x000010e5   Thumb Code     0  init.o(.text)
-    __aeabi_llsl                             0x00001109   Thumb Code    30  llshl.o(.text)
-    _ll_shift_l                              0x00001109   Thumb Code     0  llshl.o(.text)
-    __aeabi_llsr                             0x00001127   Thumb Code    32  llushr.o(.text)
-    _ll_ushift_r                             0x00001127   Thumb Code     0  llushr.o(.text)
-    _chval                                   0x00001147   Thumb Code    28  _chval.o(.text)
-    __0sprintf$4                             0x00001165   Thumb Code    34  printf4.o(i.__0sprintf$4)
-    __1sprintf$4                             0x00001165   Thumb Code     0  printf4.o(i.__0sprintf$4)
-    __2sprintf                               0x00001165   Thumb Code     0  printf4.o(i.__0sprintf$4)
-    __aeabi_errno_addr                       0x0000118d   Thumb Code     4  errno.o(i.__aeabi_errno_addr)
-    __rt_errno_addr                          0x0000118d   Thumb Code     0  errno.o(i.__aeabi_errno_addr)
-    __scatterload_copy                       0x00001195   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x000011a3   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x000011a5   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    __ctype_table                            0x000013e6   Data         129  ctype_o.o(.constdata)
-    Region$$Table$$Base                      0x0000146c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0000148c   Number         0  anon$$obj.o(Region$$Table)
+    button_D                                 0x00000adf   Thumb Code   276  microwave controller.o(.text)
+    main                                     0x00000bf3   Thumb Code  1012  microwave controller.o(.text)
+    strlen                                   0x00001045   Thumb Code    14  strlen.o(.text)
+    strtol                                   0x00001053   Thumb Code   112  strtol.o(.text)
+    __aeabi_uldivmod                         0x000010c3   Thumb Code    98  uldiv.o(.text)
+    __rt_ctype_table                         0x00001125   Thumb Code     4  ctype_o.o(.text)
+    _strtoul                                 0x0000112d   Thumb Code   158  _strtoul.o(.text)
+    __scatterload                            0x000011cd   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x000011cd   Thumb Code     0  init.o(.text)
+    __aeabi_llsl                             0x000011f1   Thumb Code    30  llshl.o(.text)
+    _ll_shift_l                              0x000011f1   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x0000120f   Thumb Code    32  llushr.o(.text)
+    _ll_ushift_r                             0x0000120f   Thumb Code     0  llushr.o(.text)
+    _chval                                   0x0000122f   Thumb Code    28  _chval.o(.text)
+    __0sprintf$4                             0x0000124d   Thumb Code    34  printf4.o(i.__0sprintf$4)
+    __1sprintf$4                             0x0000124d   Thumb Code     0  printf4.o(i.__0sprintf$4)
+    __2sprintf                               0x0000124d   Thumb Code     0  printf4.o(i.__0sprintf$4)
+    __aeabi_errno_addr                       0x00001275   Thumb Code     4  errno.o(i.__aeabi_errno_addr)
+    __rt_errno_addr                          0x00001275   Thumb Code     0  errno.o(i.__aeabi_errno_addr)
+    __scatterload_copy                       0x0000127d   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0000128b   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x0000128d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    __ctype_table                            0x000014ce   Data         129  ctype_o.o(.constdata)
+    Region$$Table$$Base                      0x00001554   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001574   Number         0  anon$$obj.o(Region$$Table)
     matrix                                   0x20000000   Data          16  microwave controller.o(.data)
     repeat                                   0x20000010   Data           1  microwave controller.o(.data)
     __initial_sp                             0x20000218   Data           0  startup_tm4c123.o(STACK)
@@ -664,9 +664,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000281
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x000014a4, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x0000158c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x0000148c, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00001574, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -681,30 +681,30 @@ Memory Map of the image
     0x0000027c   0x00000000   Code   RO          325    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
     0x0000027c   0x00000004   Code   RO          314    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x000000f4   Code   RO            4  * .text               startup_tm4c123.o
-    0x00000374   0x00000be8   Code   RO           10    .text               microwave controller.o
-    0x00000f5c   0x0000000e   Code   RO           48    .text               mc_w.l(strlen.o)
-    0x00000f6a   0x00000070   Code   RO          311    .text               mc_w.l(strtol.o)
-    0x00000fda   0x00000062   Code   RO          332    .text               mc_w.l(uldiv.o)
-    0x0000103c   0x00000008   Code   RO          334    .text               mc_w.l(ctype_o.o)
-    0x00001044   0x0000009e   Code   RO          369    .text               mc_w.l(_strtoul.o)
-    0x000010e2   0x00000002   PAD
-    0x000010e4   0x00000024   Code   RO          382    .text               mc_w.l(init.o)
-    0x00001108   0x0000001e   Code   RO          385    .text               mc_w.l(llshl.o)
-    0x00001126   0x00000020   Code   RO          387    .text               mc_w.l(llushr.o)
-    0x00001146   0x0000001c   Code   RO          391    .text               mc_w.l(_chval.o)
-    0x00001162   0x00000002   PAD
-    0x00001164   0x00000028   Code   RO          163    i.__0sprintf$4      mc_w.l(printf4.o)
-    0x0000118c   0x00000008   Code   RO          362    i.__aeabi_errno_addr  mc_w.l(errno.o)
-    0x00001194   0x0000000e   Code   RO          398    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x000011a2   0x00000002   Code   RO          399    i.__scatterload_null  mc_w.l(handlers.o)
-    0x000011a4   0x0000000e   Code   RO          400    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x000011b2   0x00000002   PAD
-    0x000011b4   0x00000228   Code   RO          168    i._printf_core      mc_w.l(printf4.o)
-    0x000013dc   0x0000000a   Code   RO          170    i._sputc            mc_w.l(printf4.o)
-    0x000013e6   0x00000081   Data   RO          335    .constdata          mc_w.l(ctype_o.o)
-    0x00001467   0x00000001   PAD
-    0x00001468   0x00000004   Data   RO          336    .constdata          mc_w.l(ctype_o.o)
-    0x0000146c   0x00000020   Data   RO          396    Region$$Table       anon$$obj.o
+    0x00000374   0x00000cd0   Code   RO           10    .text               microwave controller.o
+    0x00001044   0x0000000e   Code   RO           48    .text               mc_w.l(strlen.o)
+    0x00001052   0x00000070   Code   RO          311    .text               mc_w.l(strtol.o)
+    0x000010c2   0x00000062   Code   RO          332    .text               mc_w.l(uldiv.o)
+    0x00001124   0x00000008   Code   RO          334    .text               mc_w.l(ctype_o.o)
+    0x0000112c   0x0000009e   Code   RO          369    .text               mc_w.l(_strtoul.o)
+    0x000011ca   0x00000002   PAD
+    0x000011cc   0x00000024   Code   RO          382    .text               mc_w.l(init.o)
+    0x000011f0   0x0000001e   Code   RO          385    .text               mc_w.l(llshl.o)
+    0x0000120e   0x00000020   Code   RO          387    .text               mc_w.l(llushr.o)
+    0x0000122e   0x0000001c   Code   RO          391    .text               mc_w.l(_chval.o)
+    0x0000124a   0x00000002   PAD
+    0x0000124c   0x00000028   Code   RO          163    i.__0sprintf$4      mc_w.l(printf4.o)
+    0x00001274   0x00000008   Code   RO          362    i.__aeabi_errno_addr  mc_w.l(errno.o)
+    0x0000127c   0x0000000e   Code   RO          398    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0000128a   0x00000002   Code   RO          399    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0000128c   0x0000000e   Code   RO          400    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0000129a   0x00000002   PAD
+    0x0000129c   0x00000228   Code   RO          168    i._printf_core      mc_w.l(printf4.o)
+    0x000014c4   0x0000000a   Code   RO          170    i._sputc            mc_w.l(printf4.o)
+    0x000014ce   0x00000081   Data   RO          335    .constdata          mc_w.l(ctype_o.o)
+    0x0000154f   0x00000001   PAD
+    0x00001550   0x00000004   Data   RO          336    .constdata          mc_w.l(ctype_o.o)
+    0x00001554   0x00000020   Data   RO          396    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000018, Max: 0xffffffff, ABSOLUTE)
@@ -730,11 +730,11 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-      3048        242          0         17          0      10661   microwave controller.o
-       244          6        620          0        512       5404   startup_tm4c123.o
+      3280        246          0         17          0      10713   microwave controller.o
+       244          6        620          0        512       5376   startup_tm4c123.o
 
     ----------------------------------------------------------------------
-      3292        248        652         20        512      16065   Object Totals
+      3524        252        652         20        512      16089   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          0          0          0          3          0          0   (incl. Padding)
 
@@ -783,15 +783,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      4474        282        786         24        512      16649   Grand Totals
-      4474        282        786         24        512      16649   ELF Image Totals
-      4474        282        786         24          0          0   ROM Totals
+      4706        286        786         24        512      16673   Grand Totals
+      4706        286        786         24        512      16673   ELF Image Totals
+      4706        286        786         24          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 5260 (   5.14kB)
+    Total RO  Size (Code + RO Data)                 5492 (   5.36kB)
     Total RW  Size (RW Data + ZI Data)               536 (   0.52kB)
-    Total ROM Size (Code + RO Data + RW Data)       5284 (   5.16kB)
+    Total ROM Size (Code + RO Data + RW Data)       5516 (   5.39kB)
 
 ==============================================================================
 
