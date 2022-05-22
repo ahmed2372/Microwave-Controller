@@ -301,62 +301,16 @@ void count_down (long num){
 }
 	}
 void loop_beef( char weight){
-  if (weight=='1'){
-         count_down(30);
-        }
-       if (weight=='2'){
-        count_down(60);
+				 char *ptr;
+				 long w;
+				 w = strtol(&weight,&ptr,10); //opt 1
+				 count_down(w*30);
        }
-       if (weight=='3'){
-        count_down(90);
-       }
-       if (weight=='4'){
-        count_down(120);
-       }
-       if (weight=='5'){
-        count_down(150);
-       }
-       if (weight=='6'){
-        count_down(180);
-       }
-       if (weight=='7'){
-        count_down(210);
-       }
-       if (weight=='8'){
-        count_down(240);
-       }
-       if (weight=='9'){
-        count_down(270);
-       }
-       }
-void loop_chicken(uint32_t weight){
-  if (weight=='1'){
-         count_down(12);
-        }
-       if (weight=='2'){
-        count_down(24);
-       }
-       if (weight=='3'){
-        count_down(36);
-       }
-       if (weight=='4'){
-        count_down(48);
-       }
-       if (weight=='5'){
-        count_down(60);
-       }
-       if (weight=='6'){
-        count_down(72);
-       }
-       if (weight=='7'){
-        count_down(84);
-       }
-       if (weight=='8'){
-        count_down(96);
-       }
-       if (weight=='9'){
-        count_down(108);
-       }
+void loop_chicken(char weight){
+				 char *ptr;
+				 long w;
+				 w = strtol(&weight,&ptr,10);
+				 count_down(w*12);
        }
                         
 void button_D(){

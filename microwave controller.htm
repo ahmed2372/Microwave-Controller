@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\microwave controller.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\microwave controller.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sat May 21 08:50:40 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Sun May 22 02:45:18 2022
 <BR><P>
 <H3>Maximum Stack Usage =        128 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -128,7 +128,7 @@ Mutually Recursive functions
  <LI><a href="#[73]">PWM1_2_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[73]">PWM1_2_Handler</a><BR>
  <LI><a href="#[74]">PWM1_3_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[74]">PWM1_3_Handler</a><BR>
  <LI><a href="#[75]">PWM1_FAULT_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[75]">PWM1_FAULT_Handler</a><BR>
- <LI><a href="#[8d]">button_D</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[8d]">button_D</a><BR>
+ <LI><a href="#[8e]">button_D</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[8e]">button_D</a><BR>
 </UL>
 <P>
 <H3>
@@ -1157,7 +1157,7 @@ Global Symbols
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Wait
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 </UL>
 
@@ -1167,7 +1167,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 </UL>
 
 <P><STRONG><a name="[92]"></a>ports_init</STRONG> (Thumb, 170 bytes, Stack size 0 bytes, microwave controller.o(.text))
@@ -1186,7 +1186,7 @@ Global Symbols
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_init
 </UL>
@@ -1207,7 +1207,7 @@ Global Symbols
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_data
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 </UL>
 
@@ -1228,33 +1228,35 @@ Global Symbols
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_chicken
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_chicken
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_beef
 </UL>
 
-<P><STRONG><a name="[8b]"></a>loop_beef</STRONG> (Thumb, 98 bytes, Stack size 8 bytes, microwave controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = loop_beef &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
+<P><STRONG><a name="[8b]"></a>loop_beef</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, microwave controller.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = loop_beef &rArr; strtol &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
-</UL>
-<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[8c]"></a>loop_chicken</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, microwave controller.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = loop_chicken &rArr; count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
-</UL>
-<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8d]"></a>button_D</STRONG> (Thumb, 276 bytes, Stack size 40 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[8d]"></a>loop_chicken</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, microwave controller.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = loop_chicken &rArr; strtol &rArr; _strtoul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
+</UL>
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[8e]"></a>button_D</STRONG> (Thumb, 216 bytes, Stack size 40 bytes, microwave controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112 + In Cycle
 <LI>Call Chain = button_D &rArr;  button_D (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_string
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_cmd
@@ -1262,15 +1264,15 @@ Global Symbols
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 1012 bytes, Stack size 16 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 1088 bytes, Stack size 16 bytes, microwave controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = main &rArr; button_D &rArr;  button_D (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_chicken
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_chicken
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_beef
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_init
@@ -1291,14 +1293,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_string
 </UL>
 
-<P><STRONG><a name="[8e]"></a>strtol</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, strtol.o(.text))
+<P><STRONG><a name="[8c]"></a>strtol</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, strtol.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_chicken
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;loop_beef
 </UL>
 
 <P><STRONG><a name="[97]"></a>__aeabi_uldivmod</STRONG> (Thumb, 98 bytes, Stack size 40 bytes, uldiv.o(.text), UNUSED)
@@ -1309,7 +1313,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[94]"></a>__rt_ctype_table</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, ctype_o.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
 
 <P><STRONG><a name="[95]"></a>_strtoul</STRONG> (Thumb, 158 bytes, Stack size 40 bytes, _strtoul.o(.text))
@@ -1318,7 +1322,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_chval
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 </UL>
 
 <P><STRONG><a name="[7b]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
@@ -1360,7 +1364,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[96]"></a>__aeabi_errno_addr</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, errno.o(i.__aeabi_errno_addr))
-<BR><BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
 </UL>
 
