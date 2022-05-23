@@ -347,7 +347,7 @@ void button_D(){
 			if(((answer1*60) + answer2)> (30*60)){
 					lcd_cmd(0x01);
 					lcd_string("Err");
-					delay_ms(1000);
+					delay_ms(2000);
 					button_D();
 			}
 			else 
@@ -355,6 +355,18 @@ void button_D(){
 				lcd_cmd(0x01);
 
 
+}
+void finish_operation(){
+	 unsigned short i ;
+	for(i=0;i<3;i++)
+	{
+				buzz(on);
+			  leds_on;
+			  delay_ms(1000);
+			  buzz(off);
+			  leds_off;
+			  delay_ms(1000);
+	}
 }
 int main()
 {
@@ -374,30 +386,14 @@ int main()
 	char x []= "";
 	repeat = false;
    
-    if(key=='A' && repeat == false){;
+    if(key=='A' && repeat == false){
       lcd_string("Popcorn");
         delay_ms(2000);
         count_down(60);
         lcd_cmd(0x01);
 			  if (repeat==false){
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);}
+				finish_operation();
+				}
     }
     else if(key=='B' && repeat == false){
       lcd_string("Beef");
@@ -422,24 +418,8 @@ int main()
        loop_beef(weight);
 			 lcd_cmd(0x01);
 			 if (repeat==false){
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);}
+				finish_operation();
+				 }
     } 
     else if(key=='C' && repeat == false){
             lcd_string("chicken");
@@ -464,24 +444,8 @@ int main()
        loop_chicken(weight);
 			 lcd_cmd(0x01);
 			 if (repeat==false){
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);}
+				finish_operation();
+			 }
     }
         
     else if(key=='D' && repeat == false){
@@ -490,24 +454,8 @@ int main()
 			button_D();
       
       if (repeat==false){
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);
-				buzz(on);
-			  leds_on;
-			  delay_ms(1000);
-			  buzz(off);
-			  leds_off;
-			  delay_ms(1000);}
+			finish_operation();
+			}
     }
 		
    }
