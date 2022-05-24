@@ -59,48 +59,47 @@ PB3 --> Buzzer
 
 #define leds_on (GPIO_PORTF_DATA_R = 0x0E)
 #define leds_off (GPIO_PORTF_DATA_R = 0x11)
-void portb_init(){
-  SYSCTL_RCGCGPIO_R |= 0x02;
-  while((SYSCTL_PRGPIO_R & 0x02)==0);
-  GPIO_PORTB_DIR_R |= 0x1B; //set B0-B1 and B3-B4 as output pins B2 input
-  GPIO_PORTB_DEN_R |=0x1F;
-  GPIO_PORTB_AMSEL_R &= ~0x1F;
-  GPIO_PORTB_AFSEL_R &= ~0x1F;
-	GPIO_PORTB_PUR_R |=0x04;
-  GPIO_PORTB_PCTL_R &=~0x000FFFFF;
- SYSCTL_RCGCGPIO_R |= 0x04;        //Enable clock to PORTC  
-  while ((SYSCTL_RCGCGPIO_R&0x04)==0);  //wait for clock to be setted
-  GPIO_PORTC_CR_R  |= 0xF0;             //Allow settings for all pins of PORTC
+void ports_init(){
+  SYSCTL_RCGCGPIO_R |= 0x3F;					//enabl clock to all ports
+  while((SYSCTL_PRGPIO_R & 0x3F)==0);	///wait for clock to be setted
+  GPIO_PORTB_DIR_R |= 0x1B; 					//set B0->B1 and B3-B4 as output pins B2 input
+  GPIO_PORTB_DEN_R |=0x1F;  					//set B0->B4 as digital pins
+  GPIO_PORTB_AMSEL_R &= ~0x1F;  			//disable analog 
+  GPIO_PORTB_AFSEL_R &= ~0x1F;				//disable alternate functions
+	GPIO_PORTB_PUR_R |=0x04;						// enable pull up Resistor to B2
+  GPIO_PORTB_PCTL_R &=~0x000FFFFF;		//make all pins as GPIO
+	
+  GPIO_PORTC_CR_R  |= 0xF0;            //Allow settings for all pins of PORTC
+  GPIO_PORTC_DIR_R |=0xF0;						 //set C4->C7 as output pins & C0->C3 as input pins
+  GPIO_PORTC_DEN_R |= 0xF0;            //Set PORTC as digital pins
   
-  GPIO_PORTC_DIR_R |=0xF0;
-  GPIO_PORTC_DEN_R |= 0xF0;             //Set PORTC as digital pins
-  
-}
 
-void porte_init(){
-  SYSCTL_RCGCGPIO_R |= 0x10;
-  while((SYSCTL_PRGPIO_R & 0x10)==0);
-  GPIO_PORTE_DIR_R &= ~0x0F; //set E0-E3 as input pins
-  GPIO_PORTE_DIR_R |= 0x30;
-  GPIO_PORTE_DEN_R |=0x3F;
-  GPIO_PORTE_AMSEL_R &= ~0x3F;
-  GPIO_PORTE_AFSEL_R &= ~0x3F;
-  GPIO_PORTE_PDR_R |= 0x0F;
-}
+  GPIO_PORTE_DIR_R &= ~0x0F; 					//set E0->E3 as input pins
+  GPIO_PORTE_DIR_R |= 0x30;						//set E4->E5 as output pins
+  GPIO_PORTE_DEN_R |=0x3F;						//set portE as digital pins
+  GPIO_PORTE_AMSEL_R &= ~0x3F;				//disable analog
+  GPIO_PORTE_AFSEL_R &= ~0x3F;				//disable alternate functions
+  GPIO_PORTE_PDR_R |= 0x0F;						//enable pull down resistor for E0->E3
 
-void PortF_Init(){
-   SYSCTL_RCGCGPIO_R |= 0x20; // activate Port F
-   while((SYSCTL_PRGPIO_R&0x00000020) == 0){};
-	 GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
-	 GPIO_PORTF_CR_R = 0x1F; // allow changes to PF4-0
-   GPIO_PORTF_DIR_R |= 0x0E; // PF4,PF0 in, PF3-1 out
-	 GPIO_PORTF_DIR_R &= ~0x11;  
-   GPIO_PORTF_DEN_R |= 0x1F; // digital on PF0-4
-   GPIO_PORTF_AMSEL_R &= ~0x1F;
-   GPIO_PORTF_AFSEL_R &= ~0x1F;
-	 GPIO_PORTF_PUR_R = 0x11;	 
+	GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
+	GPIO_PORTF_CR_R = 0x1F; // allow changes to PF4-0
+  GPIO_PORTF_DIR_R |= 0x0E; // PF4,PF0 in, PF3-1 out
+	GPIO_PORTF_DIR_R &= ~0x11;  
+  GPIO_PORTF_DEN_R |= 0x1F; // digital on PF0-4
+  GPIO_PORTF_AMSEL_R &= ~0x1F;
+  GPIO_PORTF_AFSEL_R &= ~0x1F;
+	GPIO_PORTF_PUR_R = 0x11;	 	 
+	GPIO_PORTA_DEN_R |=0xE0;  
+  GPIO_PORTD_DEN_R |=0x07;  
+  GPIO_PORTA_DIR_R |=0xE0;  
+  GPIO_PORTD_DIR_R |=0x07; 
+  GPIO_PORTA_AMSEL_R &=~0xE0;  
+  GPIO_PORTD_AMSEL_R &=~0x07; 
+  GPIO_PORTA_PCTL_R &=~0xFFF00000; 
+  GPIO_PORTD_PCTL_R &=~0x00000FFF; 
+  GPIO_PORTA_AFSEL_R &=~0xE0;
+  GPIO_PORTD_AFSEL_R &=~0x07;
 }
-
 
 
 
@@ -190,31 +189,6 @@ char keypad(void){
   }
 }
 
-void ports_init(){
-  SYSCTL_RCGCGPIO_R |=0x09;
-  while((SYSCTL_PRGPIO_R & 0x09) ==0);
-  GPIO_PORTA_DEN_R |=0xE0;
-  
-  GPIO_PORTD_DEN_R |=0x07;
-  
-  GPIO_PORTA_DIR_R |=0xE0;
-  
-  GPIO_PORTD_DIR_R |=0x07;
-  
-  GPIO_PORTA_AMSEL_R &=~0xE0;
-  
-  GPIO_PORTD_AMSEL_R &=~0x07;
-  
-  GPIO_PORTA_PCTL_R &=~0xFFF00000;
-  
-  GPIO_PORTD_PCTL_R &=~0x00000FFF;
-  
-  GPIO_PORTA_AFSEL_R &=~0xE0;
-  
-  GPIO_PORTD_AFSEL_R &=~0x07;
-  
-  
-}
 
 void print_data(unsigned char data)
 {
@@ -370,11 +344,7 @@ void finish_operation(){
 }
 int main()
 {
- portb_init();
- porte_init();
- PortF_Init();
  ports_init();
-
  delay_us(1000);
  lcd_init();
  lcd_cmd(0x80);
