@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\microwave controller.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\microwave controller.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Mon May 23 19:52:19 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5.03 [Build 76]: Last Updated: Wed May 25 11:35:48 2022
 <BR><P>
 <H3>Maximum Stack Usage =        128 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1129,11 +1129,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[80]"></a>switch1</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, microwave controller.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 
 <P><STRONG><a name="[81]"></a>switch2</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, microwave controller.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<BR><BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;keypad
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
 
 <P><STRONG><a name="[7f]"></a>switch3</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, microwave controller.o(.text))
@@ -1154,16 +1157,18 @@ Global Symbols
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;count_down
 </UL>
 
-<P><STRONG><a name="[82]"></a>keypad</STRONG> (Thumb, 120 bytes, Stack size 12 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[82]"></a>keypad</STRONG> (Thumb, 172 bytes, Stack size 12 bytes, microwave controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = keypad &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch2
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch1
+<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 </UL>
 
-<P><STRONG><a name="[84]"></a>print_data</STRONG> (Thumb, 414 bytes, Stack size 0 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[84]"></a>print_data</STRONG> (Thumb, 420 bytes, Stack size 0 bytes, microwave controller.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_data
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_cmd
 </UL>
@@ -1208,13 +1213,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[89]"></a>count_down</STRONG> (Thumb, 136 bytes, Stack size 32 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[89]"></a>count_down</STRONG> (Thumb, 168 bytes, Stack size 32 bytes, microwave controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = count_down &rArr; lcd_string &rArr; lcd_data &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_string
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_cmd
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;switch2
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
@@ -1240,7 +1246,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8e]"></a>button_D</STRONG> (Thumb, 216 bytes, Stack size 40 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[8e]"></a>button_D</STRONG> (Thumb, 306 bytes, Stack size 40 bytes, microwave controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112 + In Cycle
 <LI>Call Chain = button_D &rArr;  button_D (Cycle)
 </UL>
@@ -1256,7 +1262,7 @@ Global Symbols
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;button_D
 </UL>
 
-<P><STRONG><a name="[8f]"></a>finish_operation</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[8f]"></a>finish_operation</STRONG> (Thumb, 132 bytes, Stack size 8 bytes, microwave controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = finish_operation &rArr; delay_ms
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
@@ -1265,7 +1271,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 596 bytes, Stack size 16 bytes, microwave controller.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 528 bytes, Stack size 16 bytes, microwave controller.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = main &rArr; button_D &rArr;  button_D (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf

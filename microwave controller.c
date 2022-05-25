@@ -10,18 +10,9 @@ bool repeat;
 /*
 		sw0 --> start
 		sw1 --> pause
-		sw2(external) --> door state 
-		state variable to decide what we will do after returning to the main.
-		interupt coditions.
+		sw2(external) --> door state --> PB2
 		
-*/
-
-
-
-
-
-
-/*******LCD PORTS**********
+*******LCD PORTS**********
 
 RS=PD0   Rgr select
 RW=PD1   Rgr read or write
@@ -53,9 +44,9 @@ PC7 --> row4
 PB3 --> Buzzer
 
 */
-
 #define on 1
 #define off 0
+
 
 #define leds_on (GPIO_PORTF_DATA_R = 0x0E)
 #define leds_off (GPIO_PORTF_DATA_R = 0x11)
@@ -101,9 +92,6 @@ void ports_init(){
   GPIO_PORTD_AFSEL_R &=~0x07;
 }
 
-
-
-
 void buzz(int num){
  if (num) GPIO_PORTB_DATA_R |= 0x08;
  else GPIO_PORTB_DATA_R &= ~0x08;
@@ -143,7 +131,6 @@ void delay_ms(uint32_t delay){
 		}
 		
 	if (switch1() == 0x00){	
-		//delay_us(200000);
 		while(switch1() == 0x00);
 		while((switch1() == 0x10) && (switch2() == 0x01)){};	
 		if(switch1() == 0x00){
@@ -156,27 +143,32 @@ void delay_ms(uint32_t delay){
 	
 }
 
-
-
-
-/*void row_activate(unsigned char row){
-  GPIO_PORTC_DATA_R = (1U<<(row+4));
-}*/
-
 #define row_activate(row) \
   GPIO_PORTC_DATA_R = (1U<<(row+4));
-
-/*unsigned char portE_DATA(){
-  return (GPIO_PORTE_DATA_R & 0x0F);
-}*/
 
 #define portE_DATA() (GPIO_PORTE_DATA_R & 0x0F)
 
 unsigned char matrix[4][4]={{'1','2','3','A'},{'4','5','6','B'},{'7','8','9','C'},{'*','0','#','D'}};
 
+bool state;
+bool clear;
+
 char keypad(void){
   while(1){
-   volatile unsigned char row,column;
+		volatile unsigned char row,column;
+		if(switch2()==0x00)
+					{
+						while(switch2()==0x00){}
+						state= true;
+						return '0';
+					
+				}
+		if(switch1()==0x00){
+						while(switch1()==0x00){}
+						clear = true;
+						return '0';
+			
+			}
     for (row=0;row<4;row++){
       row_activate(row);
       delay_us(2);
@@ -188,7 +180,6 @@ char keypad(void){
     }
   }
 }
-
 
 void print_data(unsigned char data)
 {
@@ -253,13 +244,16 @@ void lcd_init(void)
  lcd_cmd(0x0C);  //Display ON, cursor OFF
  lcd_cmd(0x01); //clear screen
 }
+bool state2 = false;
 void count_down (long num){
 	long minutes;
 	long seconds;
 	long k;
 	char min[]="";
 	char sec[]="";
+	
 	for(k=num;k>=0;k--){
+		
 		lcd_cmd(0x01);
 		minutes=(k/60)%60;
 		seconds=(k%60);
@@ -272,44 +266,60 @@ void count_down (long num){
 		lcd_string(sec);
 		delay_ms(1000);
 		if(repeat==true){break;}
+		while(switch2()==0x01&&state2==false);
+		state2 = true;
+		leds_on;
 }
 	}
 void loop_beef( char weight){
-				 char *ptr;
+			  char *ptr;
 				 long w;
-				 w = strtol(&weight,&ptr,10); //opt 1
+				 w = strtol(&weight,&ptr,10);
 				 count_down(w*30);
        }
 void loop_chicken(char weight){
 				 char *ptr;
 				 long w;
 				 w = strtol(&weight,&ptr,10);
-				 count_down(w*12);
+				 count_down(w*12);					 
        }
                         
 void button_D(){
-	int i;
-	char str[] = "00:00";
-	char min_value[] = "  ";
-	char sec_value[] = "  ";
-	char *remaining;
-    long answer1;
-	long answer2;
-	lcd_cmd(0x01);
-
-			
+			int i;
+			char str[] = "00:00";
+			char min_value[] = "  ";
+			char sec_value[] = "  ";
+			char *remaining;
+			long answer1;
+			long answer2;
+			state = false;
+			lcd_cmd(0x01);
 			lcd_string(str);
-			
-
 			for(i=3;i>=0;i--){
 				
 				str[0] = str[1];
 				str[1] = str[3];
 				str[3] = str[4];
 				str[4] = keypad();
-				lcd_cmd(0x01);
+				
+				if(clear==true){
+					clear=false;
+					lcd_cmd(0x01);
+					button_D();
+				}
+				
+				if(state==true){
+					str[4] = str[3];
+					str[3] = str[1];
+					str[1] = str[0];
+					str[0] = '0';
+					state2=true;
+					break;	
+				}
+				else{lcd_cmd(0x01);
 				lcd_string(str);
-			  delay_ms(500);
+			  delay_ms(500);}
+
 			}
 			
 			min_value[0] = str[0]; 
@@ -318,20 +328,20 @@ void button_D(){
 			sec_value[1] = str[4];
 			answer1 = strtol(min_value, &remaining, 10);
 			answer2 =	strtol(sec_value, &remaining, 10);
-			if(((answer1*60) + answer2)> (30*60)){
-					lcd_cmd(0x01);
-					lcd_string("Err");
-					delay_ms(2000);
-					button_D();
+			if((((answer1*60) + answer2)> (30*60)) || (((answer1*60) + answer2) < 1)){
+						lcd_cmd(0x01);
+						lcd_string("Err");
+						delay_ms(2000);
+						button_D();
 			}
-			else 
-				count_down(((answer1*60) + answer2));
-				lcd_cmd(0x01);
+			else count_down(((answer1*60) + answer2));
+			
+			lcd_cmd(0x01);
 
 
 }
 void finish_operation(){
-	 unsigned short i ;
+	  unsigned long i ;
 	for(i=0;i<3;i++)
 	{
 				buzz(on);
@@ -355,7 +365,8 @@ int main()
   volatile char weight;
 	char x []= "";
 	repeat = false;
-   
+   state2= false;
+	 
     if(key=='A' && repeat == false){
       lcd_string("Popcorn");
         delay_ms(2000);
@@ -427,6 +438,12 @@ int main()
 			finish_operation();
 			}
     }
-		
+		else{
+				lcd_string("Err");
+				delay_ms(2000);
+				lcd_cmd(0x01);
+		}
+		leds_off;
    }
   }
+
